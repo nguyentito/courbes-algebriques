@@ -1,0 +1,250 @@
+\documentclass[a4paper, 11pt]{article}
+
+% Compiler avec XeLaTeX !!
+
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{unicode-math}
+\usepackage{polyglossia}
+\setmainlanguage{french}
+\usepackage{csquotes} % guillemets
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+% amsthm config
+
+\newtheorem{théorème}{Théorème}
+\newtheorem{propriété}[théorème]{Propriété}
+\newtheorem{lemme}[théorème]{Lemme}
+\newtheorem{corollaire}[théorème]{Corollaire}
+\theoremstyle{definition}
+\newtheorem{définition}{Définition}
+
+% Notations
+% \mathbb instead of \mathbf because
+% http://www.madore.org/~david/weblog/d.2009-02-08.1608.html
+
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\aff}{\mathbb{A}}
+\newcommand{\proj}{\mathbb{A}}
+
+\begin{document}
+
+\title{Introduction à la géométrie algébrique}
+\author{Cours donné par Ilia Itenberg}
+\date{2015--2016}
+
+\maketitle
+
+Page web du cours : \url{http://mathfond.math.upmc.fr/2015-16/fiches/Itenberg-intro.html}
+
+Le but de ce cours est de fournir beaucoup d'exemples, pour préparer
+aux cours plus avancés de géométrie algébrique
+
+Référence : \textit{Basic Algebraic Geometry} de Shafarevich ?
+
+\begin{itemize}
+\item Cours 1 : sections blabla à blabla
+\item Cours 2 : sections blabla à blabla
+\end{itemize}
+
+\tableofcontents
+
+\newpage
+
+\section{Courbes affines planes}
+
+\subsection{Définition et premiers exemples}
+
+Voici une première tentative de définir la notion de \enquote{courbe
+  définie par une équation polynomiale} :
+\begin{définition}
+  Une \emph{courbe algébrique plane} définie sur un corps $K$ est
+  l'ensemble des points $(x,y) = K$ tels que $f(x,y) = 0$, où $f$ est
+  un polynôme non constant à deux variables et à coefficients dans
+  $K$.
+\end{définition}
+Note : le plan $K^2$ sera souvent noté $\aff^2$, c'est-à-dire l'espace
+affine de dimension 2 (sous-entendu : sur le corps K)
+
+Soit $C = \{(x,y)\in K^2 \mid f(x,y)=0\}$. On peut définir :
+\begin{itemize}
+\item le degré de $C$ : c'est le degré du polynôme $f$
+\item la notion d'irréductibilité : $C$ est une courbe irréductible si
+  $f$ est un polynôme irréductible.
+\end{itemize}
+Précisions l'interprétation géométrique de l'irréductibilité : si
+$f \in K[x,y]$ est non constant, on peut le décomposer\footnote{De
+  façon unique, à permutation et à multiplication par un scalaire
+  près.} en facteurs irréductibles :
+\[ f = f_1^{k_1} \times \ldots \times f_r^{k_r} \]
+Dans ce cas, en posant $C_i = {f_i = 0}$, on a :
+\[ C = C_1 \cup \ldots \cup C_r \]
+autrement dit, la courbe se décompose en courbes plus simples. Une
+courbe irréductible, moralement, ne peut pas se décomposer ainsi.
+
+Cependant, la définition 1 n'est pas toujours satisfaisante !
+Ainsi, considérons $x^2 + y^2 = 0$ sur $\real^2$ ($K = \real$).
+\begin{itemize}
+\item La courbe est réduite au point $(0,0)$, ce qui intuitivement,
+  est un objet de dimension 0 et non 1 !
+\item Quel est le degré de cette courbe ? Le même ensemble étant
+  défini par $x^4 + y^4 = 0$, il n'y a pas unicité du polynôme dont
+  l'ensemble est lieu d'annulation ; le degré est donc mal défini (de
+  même pour l'irréductibilité).
+\end{itemize}
+
+Pour résoudre ces difficultés, on va vouloir prendre $K$les notions
+\emph{algébriquement clos}. Afin d'en constater les avantages,
+prouvons d'abord le lemme suivant :
+\begin{lemme}
+  Soit $K$ un corps\footnote{À ce stade, on ne demande pas au corps
+    d'être algébriquement clos. Il peut même être fini, auquel cas la
+    conclusion est trivialement vraie.}, $f \in K[x,y]$ irréductible,
+  $g \in K[x,y]$ quelconque.
+
+  Alors, si $f \nmid g$, alors le système de deux équations
+  $f(x,y) = 0, g(x,y) = 0$ n'a qu'un nombre fini de solutions.
+\end{lemme}
+\begin{proof}
+  \emph{Astuce} : considérer $f$ et $g$ comme polynômes à une variable
+  à coefficients dans\footnote{Rappel : c'est le corps des fractions
+    rationnelles en une indéterminée $y$.} $K(y)$, i.e.
+  $f, g \in K(y)[x]$. On remarque que
+  \begin{enumerate}[(a)]
+  \item $f$ est irréductible dans $K(y)[x]$
+  \item $f \nmid g$ dans $K(y)[x]$
+  \end{enumerate}
+  Esquisse de preuve du $(i)$ (le $(ii)$ étant semblable) : supposons
+  que $f = pq$ dans $K[x,y]$. En multipliant par le dénominateur
+  commun des coefficients de $p$ dans $K(y)$, puis par celui de
+  $q$, on obtient
+  \[ a(y)f(x,y) = p'(x,y)q'(x,y) \]
+  où $p', q' \in K[x,y]$ et $a \in K[y]$. Ce qui signifie que
+  $f \mid p'q'$ dans $K[x,y]$. Or, par hypothèse, $f$ est irréductible
+  dans $K[x,y]$, qui est un anneau factoriel. Donc, parmi $p$ et $q$,
+  l'un des deux est divisible par $f$ et l'autre divise donc $a(y)$,
+  c'est-à-dire qu'il est dans $K[y]$ : dans $K(y)[x]$, il a le statut
+  de constante. On a montré que toute factorisation de $f$ dans
+  $K(y)[x]$ était triviale.
+
+  Une fois $(i)$ et $(ii)$ établis, on sait que $f$ et $g$ sont
+  premiers entre eux dans $K(y)[x]$, donc il existe $u, v \in K(y)[x]$
+  tels que $uf+vg=1$. Encore une fois, on multiplie par le
+  dénominateur commun et on aboutit à une égalité de la forme
+  \[ u'(x,y)f(x,y) + v'(x,y)g(x,y) = h(y) \]
+  où $u', v' \in K[x,y]$ et $h \in K[y]$.
+
+  Si $(x_0, y_0)$ est solution du système, alors $y_0$ est racine du
+  polynôme à une variable $h$. Il existe donc un nombre fini de $y_0$
+  possibles, et pour chacun d'entre eux, ???
+\end{proof}
+
+On se souvient maintenant que les corps algébriquement clos sont tous
+\emph{infinis} (exercice), ce qui permet d'obtenir :
+\begin{corollaire}
+  Sur un corps $K$ algébriquement clos, tout polynôme
+  \emph{irréductible} dans $K[x,y]$ est déterminé par sa courbe dans
+  $\aff^2$ de façon unique, à un facteur constant près.
+\end{corollaire}
+\begin{proof}
+  Toute courbe $\{f(x,y)=0\}$ dans $\aff^2$ sur un corps
+  algébriquement clos a un nombre infini de points : si on fixe $x_0$
+  de sorte que $f(x_0,y)$ ne soit pas constant non nul en $y$, il
+  existe forcément une racine $y_0$, et il y a une infinité de $x_0$
+  possibles ? (on utilise donc deux fois le fait que $K$ soit
+  algébriquement clos).
+
+  Ainsi, soit $f \in K[x,y]$ irréductible, et $g \in K[x,y]$
+  définissant la même courbe. Ils ont alors une infinité de zéros
+  communs, donc d'après le lemme précédent, $f \mid g$.
+\end{proof}
+
+Ceci permet un choix canonique de polynôme pour chaque courbe
+irréductible. On généralise aux courbes quelconques par un résultat
+analogue sur les polynômes \emph{sans facteur multiple}. On a donc, en
+restreignant les corps considérés, résolu les soucis avec la
+définition (une alternative aurait été de définir algébriquement la
+notion de courbe de façon plus sophistiquée).\\
+
+Un autre avantage des corps algébriquement clos : le nombre de
+racines\footnote{Comptées avec multiplicité, bien sûr.} d'un polynôme
+est \emph{exactement} égal au degré du polynôme. Plus généralement,
+sans clôture algébrique, on perd beaucoup d'information sur le nombre
+d'intersections entre courbes. En témoigne cet énoncé approximatif du
+\emph{théorème de Bezout}, qu'on reverra plus tard :
+
+\textit{Soient $C_1$ et $C_2$ deux courbes dans $\aff^2$, de degrés
+  respectifs $d_1$ et $d_2$. Si $C_1 \cap C_2$ est fini, alors son
+  cardinal est majoré par $d_1 d_2$, et c'est même une égalité sous
+  certaines conditions de généricité.}
+
+Dans $\real^2$, ceci est \emph{faux}, on peut penser par exemple aux
+nombreux cas pour l'intersection de deux coniques. Attention,
+\emph{même la majoration est fausse} ! Elle devient vraie si on
+remplace l'hypothèse donnée, c'est-à-dire \enquote{le nombre de points
+  d'intersection sur $\real$ est fini}, par \enquote{il n'existe pas
+  de \emph{composante commune}} (ceci sera vu plus loin), le premier
+n'impliquant pas le second. (\textit{Exercice} : trouver un contre-exemple.)\\
+
+À partir de maintenant, \textbf{sauf mention du contraire, le corps de
+  base sera pris algébriquement clos}. Ce cadre permet quand même de
+faire de la géométrie sur $\real$, en travaillant dans $\complex$ tout
+en préservant l'invariance par la conjugaison complexe.
+
+Un exemple \enquote{scolaire} : la droite polaire d'un point et d'un
+cercle. (Faire un dessin.) La construction géométrique par les
+tangentes échoue lorsque $P$ est à l'intérieur du
+cercle. Algébriquement, on trouve deux points de tangence dans
+$\complex\setminus\real$, qui sont \emph{conjugués}. La droite
+complexe qui les relie dans $\complex^2$ intersecte $\real^2$ et on
+retrouve une droite polaire dans le plan usuel, \emph{algébriquement}.
+
+Un autre cas intéressant qui dépasse le cadre algébriquement clos (et
+ne sera donc pas traité dans ce cours) est $K = \mathbb{Q}$. Exemple
+célèbre : la courbe de Fermat $x^n + y^n = 1$, qui n'admet pas de
+points rationnels pour $n \geq 3$.
+
+\subsection{Courbes rationnelles}
+
+\emph{Attention}, la terminologie ne signifie \emph{pas} que ces
+courbes sont définies sur $\mathbb{Q}$ !
+
+Considérons comme exemple la courbe définie par $y^2 = x^2 + x^3$. Il
+s'agit d'une cubique irréductible, qui possède en plus la propriété
+intéressante suivante : on peut en donner un paramétrage par deux
+fonctions rationnelles d'une variable.
+
+Géométriquement, ce qu'on va faire, c'est paramétrer la courbe par la
+pente de la droite reliant le point considéré à l'origine ; on peut
+voir ça aussi comme une projection sur la droite $x=1$, de centre
+l'origine.
+
+FAIRE UN DESSIN
+
+Concrètement, on va poser $y = tx$. On a alors $t^2 x^2 = x^2 +
+x^3$. Il y a deux cas à distinguer :
+\begin{itemize}
+\item $x \neq 0$ : on simplifie, d'où $t^2 = 1 + x$, puis
+  $x = t^2 - 1$ et $y = t(t^2 - 1)$.
+\item $x=0$ : OK, $(0,0)$ est un point de la courbe, et on le retrouve
+  avec le paramétrage précédent lorsque $t=0$.
+\end{itemize}
+Finalement on obtient bien quelque chose du type
+$(x,y) = (\phi(t), \psi(t))$ où $\phi, \psi \in K(t)$.
+
+\begin{définition}
+Une courbe rationnelle  
+\end{définition}
+
+\end{document}
+
