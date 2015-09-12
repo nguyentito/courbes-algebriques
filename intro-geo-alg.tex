@@ -35,7 +35,7 @@
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\complex}{\mathbb{C}}
 \newcommand{\aff}{\mathbb{A}}
-\newcommand{\proj}{\mathbb{A}}
+\newcommand{\proj}{\mathbb{P}}
 
 \begin{document}
 
@@ -92,7 +92,7 @@ Dans ce cas, en posant $C_i = {f_i = 0}$, on a :
 autrement dit, la courbe se décompose en courbes plus simples. Une
 courbe irréductible, moralement, ne peut pas se décomposer ainsi.
 
-Cependant, la définition 1 n'est pas toujours satisfaisante !
+\paragraph{Cependant,} la définition 1 n'est pas toujours satisfaisante !
 Ainsi, considérons $x^2 + y^2 = 0$ sur $\real^2$ ($K = \real$).
 \begin{itemize}
 \item La courbe est réduite au point $(0,0)$, ce qui intuitivement,
@@ -174,9 +174,9 @@ irréductible. On généralise aux courbes quelconques par un résultat
 analogue sur les polynômes \emph{sans facteur multiple}. On a donc, en
 restreignant les corps considérés, résolu les soucis avec la
 définition (une alternative aurait été de définir algébriquement la
-notion de courbe de façon plus sophistiquée).\\
+notion de courbe de façon plus sophistiquée).
 
-Un autre avantage des corps algébriquement clos : le nombre de
+\paragraph{Un autre avantage des corps algébriquement clos} : le nombre de
 racines\footnote{Comptées avec multiplicité, bien sûr.} d'un polynôme
 est \emph{exactement} égal au degré du polynôme. Plus généralement,
 sans clôture algébrique, on perd beaucoup d'information sur le nombre
@@ -194,22 +194,24 @@ nombreux cas pour l'intersection de deux coniques. Attention,
 remplace l'hypothèse donnée, c'est-à-dire \enquote{le nombre de points
   d'intersection sur $\real$ est fini}, par \enquote{il n'existe pas
   de \emph{composante commune}} (ceci sera vu plus loin), le premier
-n'impliquant pas le second. (\textit{Exercice} : trouver un contre-exemple.)\\
+n'impliquant pas le second. (\textit{Exercice} : trouver un contre-exemple.)
 
-À partir de maintenant, \textbf{sauf mention du contraire, le corps de
+\paragraph{}À partir de maintenant, \textbf{sauf mention du contraire, le corps de
   base sera pris algébriquement clos}. Ce cadre permet quand même de
 faire de la géométrie sur $\real$, en travaillant dans $\complex$ tout
 en préservant l'invariance par la conjugaison complexe.
 
-Un exemple \enquote{scolaire} : la droite polaire d'un point et d'un
-cercle. (Faire un dessin.) La construction géométrique par les
+\paragraph{Un exemple \enquote{scolaire}} : la droite polaire d'un point et d'un
+cercle.
+
+(Faire un dessin.) La construction géométrique par les
 tangentes échoue lorsque $P$ est à l'intérieur du
 cercle. Algébriquement, on trouve deux points de tangence dans
 $\complex\setminus\real$, qui sont \emph{conjugués}. La droite
 complexe qui les relie dans $\complex^2$ intersecte $\real^2$ et on
 retrouve une droite polaire dans le plan usuel, \emph{algébriquement}.
 
-Un autre cas intéressant qui dépasse le cadre algébriquement clos (et
+\paragraph{}Un autre cas intéressant qui dépasse le cadre algébriquement clos (et
 ne sera donc pas traité dans ce cours) est $K = \mathbb{Q}$. Exemple
 célèbre : la courbe de Fermat $x^n + y^n = 1$, qui n'admet pas de
 points rationnels pour $n \geq 3$.
@@ -219,10 +221,10 @@ points rationnels pour $n \geq 3$.
 \emph{Attention}, la terminologie ne signifie \emph{pas} que ces
 courbes sont définies sur $\mathbb{Q}$ !
 
-Considérons comme exemple la courbe définie par $y^2 = x^2 + x^3$. Il
-s'agit d'une cubique irréductible, qui possède en plus la propriété
-intéressante suivante : on peut en donner un paramétrage par deux
-fonctions rationnelles d'une variable.
+\paragraph{Exemple} Considérons la courbe définie par
+$y^2 = x^2 + x^3$. Il s'agit d'une cubique irréductible, qui possède
+en plus la propriété intéressante suivante : on peut en donner un
+paramétrage par deux fonctions rationnelles d'une variable.
 
 Géométriquement, ce qu'on va faire, c'est paramétrer la courbe par la
 pente de la droite reliant le point considéré à l'origine ; on peut
@@ -243,8 +245,47 @@ Finalement on obtient bien quelque chose du type
 $(x,y) = (\phi(t), \psi(t))$ où $\phi, \psi \in K(t)$.
 
 \begin{définition}
-Une courbe rationnelle  
+  Soit $C$ une courbe irréductible dans $\aff^2$, définie par un
+  polynôme irréductible $f$. On dit que $C$ est \emph{rationnelle}
+  s'il existe deux fonctions rationnelles $\phi$ et $\psi$, dont au
+  moins une non constante, telles que $f(\phi(t),\psi(t)) = 0$ pour
+  tout $t \in K$ où $\phi$ et $\psi$ sont toutes deux définies.
+  
+  $(\phi, \psi)$ est appelée une \emph{paramétrisation}\footnote{C'est
+    comme ça que c'est dit dans le cours, mais \enquote{paramétrage}
+    serait peut-être préférable ?} de $C$.
 \end{définition}
+
+\paragraph{Exemples} (1) Toute droite dans $\aff^2$ est rationnelle (exercice).\\
+(2) Toute conique irréductible dans $\aff^2$ est rationnelle.
+
+Démontrons le (2). (FAIRE UN DESSIN avec une ellipse qui sera
+suggestif mais aura peu de sens car on ne travaille en aucun cas sur
+$\real$ !)
+
+Soit $P_0 = (x_0, y_0) \in C$, une droite passant par ce point coupe $C$ en
+un autre point (sauf pour une droite particulière, la tangente). On va
+paramétrer par la pente de la droite, en posant $y-y_0 =
+t(x-x_0)$. Substituer $y$ par $y_0 + t(x-x_0)$ dans $f(x,y)$ donne
+\[ A(t)x^2 + B(t)x + C(t) = 0, \quad A,B,C \in K[t] \]
+Pour $t$ fixé, la droite de pente $t$ passant par $P_0$ intersecte la
+conique en deux points, $P_0$ d'abscisse $x_0$, et le point $P$ qu'on
+veut paramétrer d'abscisse $x$ : ce sont les deux racines du trinôme
+ci-dessus. Par relation coefficients-racines, on en déduit $x$ comme
+une fonction rationnelle de $t$, puis $y$ en découle.
+
+Dans le cas particulier de la conique, on voit que le paramétrage est
+très intéressant : connaître \emph{un} point rationnel permet de
+connaître \emph{tous} les points rationnels.
+
+\paragraph{Quelles courbes sont rationnelles ?} Reformulation (????)
+avec le corps des fonctions rationnelles.
+
+Soit $C$ une courbe irréductible dans $\aff^2$ (lieu d'annulation du
+polynôme irréductible $f$), on va définir un corps $K(C)$ contenant
+les \enquote{fonctions rationnelles} définies sur $C$.
+
+
 
 \end{document}
 
