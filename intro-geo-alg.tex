@@ -24,6 +24,7 @@
 \newtheorem{propriété}[théorème]{Propriété}
 \newtheorem{lemme}[théorème]{Lemme}
 \newtheorem{corollaire}[théorème]{Corollaire}
+\newtheorem{proposition}[théorème]{Proposition}
 \theoremstyle{definition}
 \newtheorem{définition}{Définition}
 
@@ -50,7 +51,11 @@ Page web du cours : \url{http://mathfond.math.upmc.fr/2015-16/fiches/Itenberg-in
 Le but de ce cours est de fournir beaucoup d'exemples, pour préparer
 aux cours plus avancés de géométrie algébrique
 
-Référence : \textit{Basic Algebraic Geometry} de Shafarevich ?
+Référence :
+\begin{itemize}
+\item \textit{Basic Algebraic Geometry} de Shafarevich ?
+\item Pour l'algèbre commutative : Zariski--Samuel
+\end{itemize}
 
 \begin{itemize}
 \item Cours 1 : sections blabla à blabla
@@ -236,10 +241,10 @@ FAIRE UN DESSIN
 Concrètement, on va poser $y = tx$. On a alors $t^2 x^2 = x^2 +
 x^3$. Il y a deux cas à distinguer :
 \begin{itemize}
-\item $x \neq 0$ : on simplifie, d'où $t^2 = 1 + x$, puis
-  $x = t^2 - 1$ et $y = t(t^2 - 1)$.
+\item $x \neq 0$ : on simplifie, d'où $t^2 = 1 + x$, puis $x = t^2 -
+1$ et $y = t(t^2 - 1)$.
 \item $x=0$ : OK, $(0,0)$ est un point de la courbe, et on le retrouve
-  avec le paramétrage précédent lorsque $t=0$.
+avec le paramétrage précédent lorsque $t=0$.
 \end{itemize}
 Finalement on obtient bien quelque chose du type
 $(x,y) = (\phi(t), \psi(t))$ où $\phi, \psi \in K(t)$.
@@ -283,9 +288,93 @@ avec le corps des fonctions rationnelles.
 
 Soit $C$ une courbe irréductible dans $\aff^2$ (lieu d'annulation du
 polynôme irréductible $f$), on va définir un corps $K(C)$ contenant
-les \enquote{fonctions rationnelles} définies sur $C$.
+les \enquote{fonctions rationnelles} définies sur $C$. On considère
+les fonctions rationnelles
+\[ u(x,y) = \frac{p(x,y)}{q(x,y)} \text{ telles que } f \nmid q \]
+Notre but étant d'évaluer $u$ en des points de $C$, on souhaite que le
+dénominateur ne soit pas identiquement nul sur $C$. Posons
+\[ u_1 = \frac{p_1}{q_1} \sim u_2 = \frac{p_2}{q_2} \text{ ssi } f
+\mid (p_1q_2 - p_2q_1 \]
+On vérifie qu'il s'agit d'une relation d'équivalence, et que le
+quotient de notre sous-ensemble de $K(x,y)$ par $\sim$ est bien un
+corps. De plus, si $u_1 \sim u_2$, pour tout $p \in C$ où $u_1$ et
+$u_2$ sont toutes définies, on aura $u_1(p) = u_2(p)$.
+\begin{définition}
+  Ce quotient est appelé \emph{corps des fonctions rationnelles sur
+    $C$} et noté $K(C)$.
+\end{définition}
+\emph{Attention}, on peut avoir $u_1 \sim u_2$, $u_1$ définie en $p$,
+et $u_2$ \emph{non} définie en $p$ !
 
+\paragraph{Exemple} Sur le cercle unité $x^2 + y^2 = 1$, on peut
+vérifier que
+\[ u_1(x,y) = \frac{1-y}{x} \sim \frac{x}{1+y} = u_2(x,y) \]
+Au point $(0,1)$, $u_1$ n'est pas définie, mais $u_2$ l'est, je peux
+donc évaluer la classe de $u_1$ et $u_2$ dans $K(C)$ au point $(0,1)$
+en choisissant le représentant $u_2$.
 
+\begin{définition}
+  Soit $C$ une courbe irréductible sur un corps $K$. On dit qu'un point
+  $p \in C$ est \emph{régulier} pour un élément $\xi \in K(C)$ si,
+  dans la classe d'équivalence $\xi$, on peut choisir un représentant
+  $g$ qui soit défini en $p$.
+\end{définition}
+
+(Fin du cours 1, début du cours 2)
+
+\paragraph{Exercice}
+Considérons la courbe $C$ définie par $y = 0$.
+Montrer que $K(C)$ peut être identifié à $K(x)$ (corps des fonctions
+rationnelles en une indéterminée $x$).
+
+Cette courbe nous fournit aussi un exemple de point non régulier :
+$\frac{1}{x}$ n'est pas définie en $0$, et aucun autre représentant de
+sa classe n'est défini en $0$.
+
+\begin{proposition}
+  Soit $C \subset \aff^2(K)$ une courbe irréductible. Alors $C$ est
+  rationnelle si et seulement si $K(C)$ est isomorphe\footnote{Il
+    s'agit d'un isomorphisme d'extensions de $K$, c'est-à-dire d'un
+    isomorphisme de corps qui fixe le sous-corps commun $K$.} à
+  $K(t)$.
+\end{proposition}
+\textit{Remarque} (pour ceux qui connaissent les extensions de
+corps)~: $K(C)$ est de degré de transcendance 1 sur $K$. La
+proposition affirme que $C$ est rationnelle ssi l'extension est
+transcendante pure.
+
+\begin{proof}
+  \textit{Sens $\Rightarrow$.} On considère une paramétrisation
+  $\phi(t), \psi(t)$ de notre courbe $C$. On va construire un
+  plongement $\iota : K(C) \hookrightarrow K(t)$. Ce qu'on a envie de
+  faire, c'est poser
+  \[ \iota : K(C) \ni u(x,y) = \frac{p(x,y)}{q(x,y)} \mapsto
+  \frac{p(\phi(t),\psi(t))}{q(\phi(t),\psi(t))} \]
+  Il faut s'assurer que cette application est bien définie, donc
+  \begin{itemize}
+  \item qu'elle est compatible avec la relation d'équivalence : c'est
+    immédiat en écrivant $f(\phi(t),\psi(t)) = 0$
+  \item que $q(\phi(t),\psi(t))$ n'est pas identiquement nulle : il
+    suffit pour cela de remarquer qu'il existe un nombre infini de
+    points de $C$ de la forme $(\phi(t),\psi(t))$, en effet
+    \begin{itemize}
+    \item l'intersection des domaines de définition de $\phi$ et
+      $\psi$ est infinie (même cofinie, car intersection de deux
+      parties cofinies : les dénominateurs de $\phi$ et $\psi$ n'ont
+      qu'un nombre fini de racines)
+    \item chaque point de $C$ a un nombre fini d'antédédents par
+      $(\phi, \psi)$
+    \end{itemize}
+  \end{itemize}
+  Le morphisme défini fixe clairement $K$. En particulier, il n'est
+  pas identiquement nul, donc il est injectif (son domaine étant un
+  corps). \emph{Attention}, il n'est pas forcément \emph{surjectif} !
+  Cependant, il réalise un isomorphisme entre $K(C)$ et un sous-corps
+  $\iota(K(C)) \subset K(t)$ ; pour conclure, il suffit d'appliquer le
+  \emph{théorème de Lüroth}\footnote{Il ne sera pas démontré en cours,
+    on se référera à Zariski--Samuel pour une preuve.} : toute
+  sous-extension $K \subsetneq L \subset K(t)$ est isomorphe à $K(t)$.
+\end{proof}
 
 \end{document}
 
