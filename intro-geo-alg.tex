@@ -24,7 +24,6 @@
 \newtheorem{propriété}[théorème]{Propriété}
 \newtheorem{lemme}[théorème]{Lemme}
 \newtheorem{corollaire}[théorème]{Corollaire}
-\newtheorem{proposition}[théorème]{Proposition}
 \theoremstyle{definition}
 \newtheorem{définition}{Définition}
 
@@ -331,13 +330,13 @@ Cette courbe nous fournit aussi un exemple de point non régulier :
 $\frac{1}{x}$ n'est pas définie en $0$, et aucun autre représentant de
 sa classe n'est défini en $0$.
 
-\begin{proposition}
+\begin{propriété}
   Soit $C \subset \aff^2(K)$ une courbe irréductible. Alors $C$ est
   rationnelle si et seulement si $K(C)$ est isomorphe\footnote{Il
     s'agit d'un isomorphisme d'extensions de $K$, c'est-à-dire d'un
     isomorphisme de corps qui fixe le sous-corps commun $K$.} à
   $K(t)$.
-\end{proposition}
+\end{propriété}
 \textit{Remarque} (pour ceux qui connaissent les extensions de
 corps)~: $K(C)$ est de degré de transcendance 1 sur $K$. La
 proposition affirme que $C$ est rationnelle ssi l'extension est
@@ -374,7 +373,117 @@ transcendante pure.
   \emph{théorème de Lüroth}\footnote{Il ne sera pas démontré en cours,
     on se référera à Zariski--Samuel pour une preuve.} : toute
   sous-extension $K \subsetneq L \subset K(t)$ est isomorphe à $K(t)$.
+
+  \textit{Sens $\Leftarrow$.} On suppose que $K(C) \simeq K(t)$. Les
+  (classes d'équivalences des) fonctions rationnelles $x$ et $y$ dans
+  $K(C)$ sont envoyées par l'isomorphisme respectivement sur
+  $\phi(t), \psi(t) \in K(t)$, au moins l'une des deux n'étant pas
+  constante.
+
+  Soit $f$ le polynôme irréductible définissant $C$. Dans $K(C)$, on a
+  $f(x,y)=0$, cette égalité étant à lire comme \enquote{le polynôme
+    $f$ évalué en les éléments $x, y \in K(C)$ a pour valeur la
+    fonction rationnelle nulle}. En transférant par l'isomorphisme on
+  a $f(\phi(t),\psi(t))=0$ dans $K(t)$. Ce qui montre que
+  $(\phi(t), \psi(t))$ est une paramétrisation de $C$.
 \end{proof}
+
+Ce dernier sens de la démonstration donne un paramétrage particulier
+de $C$, qui vérifie deux propriétés importantes :
+\begin{enumerate}[(1)]
+\item Tout point de $C$, sauf un nombre fini, peut être représenté
+  comme $(\phi(t),\psi(t))$ pour une certaine valeur de $t \in K$.
+\item À l'exception d'un nombre fini de points, une telle
+  représentation est unique.
+\end{enumerate}
+Pour prouver cela, posons $\chi(x,y)$ qui correspond à $t$ par
+l'isomorphisme. Alors
+\begin{enumerate}[(i)]
+\item $(x,y) = (\phi(\chi(x,y)), \psi(\chi(x,y)))$
+\item $t = \chi(\phi(t),\psi(t))$
+\end{enumerate}
+L'égalité $(i)$ prouve $(1)$ car $\chi$ n'a qu'un nombre fini de
+points de non-définition sur $C$, en vertu du lemme 1 (considérer le
+système $f(x,y) = \chi(x,y) = 0$). De la même façon, $(2)$ découle de
+$(ii)$.
+
+\paragraph{Remarque} Ces propriétés ne sont absolument pas vérifiées
+par \emph{toutes} les paramétrisations ! Mais on peut, à partir d'une
+paramétrisation quelconque, récupérer une \enquote{bonne}
+paramétrisation en effectuant la démonstration dans le sens
+$(\Rightarrow)$, en utilisant l'isomorphisme du théorème de Lüroth, et
+en appliquant le sens $(\Leftarrow)$. Si on vérifie déjà $(1)$ et
+$(2)$, $\iota$ devrait être surjectif et on devrait retomber sur nos
+pas ; à vérifier.
+
+\paragraph{Exemple} On reprend l'exemple $y^2 = x^2 + x^3$, qu'on
+avait paramétré par $x = t^2 - 1$, $y = t(t^2 - 1)$. Cette
+paramétrisation vérifie les propriétés $(1)$ et $(2)$, mais on peut la
+rendre plus mauvaise : par exemple, faire $t \leftarrow t^2$ (en
+obtenant ainsi $x = t^4 - 1$, etc.) nous fait perdre l'unicité de la
+représentation. Rien ne nous interdit, dans la définition d'un
+paramétrage, de parcourir la courbe deux fois !
+
+\subsection{Applications rationnelles}
+
+\begin{définition}
+  Soient $C$ et $D$ deux courbes irréductibles dans
+  $\aff^2(K)$. Soient $u, v \in K(C)$. Si pour tout $p \in C$ régulier
+  pour $u$ et $v$, $(u(p), v(p)) \in D$, on dit que $\Phi = (u,v)$ est
+  une \emph{application rationnelle} de $C$ dans $D$.
+\end{définition}
+\paragraph{Remarque/notation} Une application rationnelle n'est pas
+forcément une application (totale) au sens ensembliste ! On utilisera
+la notation $\Phi : C \dashrightarrow D$ pour garder à l'esprit que
+$\Phi$ peut ne pas être définie sur certains points.
+
+\paragraph{Exemples} à traiter en exercice :
+\begin{itemize}
+\item La projection d'une conique irréductible sur une droite, à
+  partir d'un point appartenant à la conique, est une application
+  rationnelle.
+\item Toute paramétrisation d'une courbe algébrique est une
+  application rationnelle $\aff^1 \dashrightarrow C$.
+\end{itemize}
+
+\begin{définition}
+  Soient $C$ et $D$ deux courbes irréductibles dans $\aff^2$. On dit
+  qu'une application rationnelle $\Phi : C \dashrightarrow D$ est un
+  \emph{isomorphisme birationnel} s'il existe une application
+  rationnelle $\Psi : D \dashrightarrow C$ telle que $\Phi \circ \Psi$
+  et $\Psi \circ \Phi$ coïncident avec $id_D$ et $id_C$ respectivement
+  partout où elles sont définies, avec $\Psi$ non constante.
+\end{définition}
+\paragraph{Remarque} Cette dernière condition \enquote{$\Psi$ non
+  constante} est là pour exclure des cas dégénérés où on ne souhaite
+pas dire que $C$ et $D$ sont birationnellement isomorphes. Avec cette
+définition, on montre alors que si $\Phi$ est un isomorphisme
+birationnel, $\Phi$ est non constant (c'est bien ça ?) Autre
+remarque~: si $\Psi : D \dashrightarrow C$ est constante, elle est
+définie partout, car on peut choisir un représentant de la classe
+d'équivalence qui est défini partout. (Tout ceci est du pinaillage pas
+très intéressant.)
+
+\begin{propriété}
+  Si $\Phi : C \dashrightarrow D$ est un isomorphisme birationnel,
+  alors pour tout point $q \in D$, $\Phi^{-1}(q)$ est fini.
+\end{propriété}
+\begin{proof}
+  Exercice.
+\end{proof}
+\begin{corollaire}
+  Si $\Phi : C \dashrightarrow D$ est un isomorphisme birationnel,
+  alors $\Phi$ établit une bijection entre
+  \[ U \cap \Phi^{-1}(V) \text{ et } V \cap \Psi^{-1}(U) \]
+  et leurs complémentaires respectifs dans $C$ et $D$ sont finis, où
+  \begin{itemize}
+  \item $\Psi$ est la réciproque
+  \item $U \subset C$ est le domaine de définition de $\Phi$
+  \item $V \subset D$ est le domaine de définition de $\Psi$
+  \end{itemize}
+\end{corollaire}
+
+(Fin du cours 2.)
 
 \end{document}
 
