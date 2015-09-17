@@ -21,7 +21,7 @@
 % amsthm config
 
 \newtheorem{théorème}{Théorème}
-\newtheorem{propriété}[théorème]{Propriété}
+\newtheorem{proposition}[théorème]{Proposition}
 \newtheorem{lemme}[théorème]{Lemme}
 \newtheorem{corollaire}[théorème]{Corollaire}
 \theoremstyle{definition}
@@ -36,6 +36,8 @@
 \newcommand{\complex}{\mathbb{C}}
 \newcommand{\aff}{\mathbb{A}}
 \newcommand{\proj}{\mathbb{P}}
+
+\newcommand{\carac}{\textrm{char}}
 
 \begin{document}
 
@@ -330,13 +332,13 @@ Cette courbe nous fournit aussi un exemple de point non régulier :
 $\frac{1}{x}$ n'est pas définie en $0$, et aucun autre représentant de
 sa classe n'est défini en $0$.
 
-\begin{propriété}
+\begin{proposition}
   Soit $C \subset \aff^2(K)$ une courbe irréductible. Alors $C$ est
   rationnelle si et seulement si $K(C)$ est isomorphe\footnote{Il
     s'agit d'un isomorphisme d'extensions de $K$, c'est-à-dire d'un
     isomorphisme de corps qui fixe le sous-corps commun $K$.} à
   $K(t)$.
-\end{propriété}
+\end{proposition}
 \textit{Remarque} (pour ceux qui connaissent les extensions de
 corps)~: $K(C)$ est de degré de transcendance 1 sur $K$. La
 proposition affirme que $C$ est rationnelle ssi l'extension est
@@ -413,8 +415,10 @@ paramétrisation quelconque, récupérer une \enquote{bonne}
 paramétrisation en effectuant la démonstration dans le sens
 $(\Rightarrow)$, en utilisant l'isomorphisme du théorème de Lüroth, et
 en appliquant le sens $(\Leftarrow)$. Si on vérifie déjà $(1)$ et
-$(2)$, $\iota$ devrait être surjectif et on devrait retomber sur nos
-pas ; à vérifier.
+$(2)$, $\iota$ est surjectif (en fait, c'est équivalent), et on
+retombe sur nos pas (exercice, où on pourra utiliser le fait que les
+sous-extensions de $K(t)/K$ sont de la forme $K(g(t))$, c'est un
+corollaire du théorème de Lüroth).
 
 \paragraph{Exemple} On reprend l'exemple $y^2 = x^2 + x^3$, qu'on
 avait paramétré par $x = t^2 - 1$, $y = t(t^2 - 1)$. Cette
@@ -464,10 +468,10 @@ définie partout, car on peut choisir un représentant de la classe
 d'équivalence qui est défini partout. (Tout ceci est du pinaillage pas
 très intéressant.)
 
-\begin{propriété}
+\begin{proposition}
   Si $\Phi : C \dashrightarrow D$ est un isomorphisme birationnel,
   alors pour tout point $q \in D$, $\Phi^{-1}(q)$ est fini.
-\end{propriété}
+\end{proposition}
 \begin{proof}
   Exercice.
 \end{proof}
@@ -484,6 +488,105 @@ très intéressant.)
 \end{corollaire}
 
 (Fin du cours 2.)
+
+\begin{définition}
+  S'il existe un isomorphisme birationnel entre deux courbes
+  irréductibles $C$ et $D$, on dit que $C$ et $D$ sont
+  \emph{birationnellement équivalentes}.
+\end{définition}
+
+\paragraph{Exemple} à traiter en exercice :
+
+Soit $C$ une courbe irréductible dans $\aff^2$. Alors $C$ est
+rationnelle si et seulement si $C$ est birationnellement équivalente à
+une droite. (Toutes les droites étant birationnellement équivalentes
+entre elles, on pourrait remplacer \enquote{une droite} par
+\enquote{la droite définie par $y=0$} dans cet énoncé.)
+
+\textit{Indication} : Si $C$ est rationnelle, on peut considérer une
+paramétrisation particulière de $C$ fournie par un isomorphisme entre
+$K(C)$ et $K(t)$. Écrire alors $t = \chi(x,y)$ et considérer
+$(x,y) \mapsto (\chi(x,y), 0)$.
+
+Dans la suite, nous allons nous intéresser à des polynômes sur
+lesquels nous restreindrons les monômes pouvant apparaître. Nous
+utiliserons alors la représentation graphique suivante :
+\begin{définition}
+  Le \emph{polygone de Newton} d'un polynôme $f \in K[x,y]$ est
+  l'enveloppe convexe dans $\real^2$ de tous les points
+  $(i,j) \in \nat^2$ tels que $f$ contienne un monôme $a_{ij} x^i y^j$
+  ($a_{ij} \neq 0$).
+\end{définition}
+Bien entendu, le polygone de Newton de $f$ est inclus dans le triangle
+de sommets $(0,0)$, $(0,d)$ et $(d,0)$ où $d$ est le degré de $f$.
+
+\paragraph{Exercice} Considérons une courbe irréductible de degré $d$
+dans $\aff^2$, définie par $f(x,y)=0$. On suppose que $f$ ne contienne
+que des monômes de degré $d-1$ et $d$. (FAIRE UN DESSIN du polygone de
+Newton). Alors $C$ est rationnelle.
+
+Remarquons qu'en particulier, l'exemple précédent $y^2 = x^2 + x^3$
+satisfait ces conditions ; reprendre la même technique pour démontrer
+le cas général.
+
+\paragraph{Note} : dans le cas où tous ses monômes ont pour degré $d$
+(le polygone de Newton est alors un segment), $f$ se décompose en
+produit de facteurs linéaires (rappel : $K$ est toujours supposé
+algébriquement clos). Or $f$ est irréductible, donc il est de degré 1.
+
+Maintenant, on considère un polynôme irréductible $f \in K[x,y]$ dont
+chaque monôme est de degré $d$, $d-1$ ou $d-2$. (DESSIN) Effectuons le
+changement de coordonnées $y = tx$, autrement dit, appliquons
+l'isomorphisme birationnel $(x,y) \mapsto (x, t = y/x)$ ; puis
+divisons par $x^{d-2}$. On obtient alors
+\[ A(t)x^2 + B(t)x + C(t) = 0, \qquad A,B,C \in K[t] \]
+La courbe définie par cette équation dans le plan de coordonnées
+$(x,t)$ est birationnellement équivalente à la courbe de départ.
+
+Ce nouveau polynôme présente l'avantage d'avoir une variable qui n'est
+que de degré 2, et on sait résoudre les équations du second
+degré. Avec toutefois quelques précautions : la fonction racine carrée
+n'est pas rationnelle ! En posant
+\[ s = 2A(t)x + B(t) \quad\text{ et }\quad p(t) = B(t)^2 -
+4A(t)C(t) \]
+on réalise un isomorphisme birationnel (à condition que \emph{la
+  caractéristique de $K$ soit différente de 2}) avec la courbe définie
+(dans un plan de coordonnées $(s,t)$) par
+\[ s^2 = p(t), \qquad p \in K[t] \]
+Une telle courbe est appelée \emph{courbe hyperelliptique}.
+
+\paragraph{Remarque} Supposons que $p$ soit de degré pair :
+$\deg p = 2n,\; n \in \nat^*$. On peut alors faire baisser de 1 le degré
+de l'équation. Pour cela, posons $p(t) = q(t)(t-\alpha)$ ($\alpha$
+racine de $p$). Alors
+\[ \left(\frac{s}{(t-\alpha)^n}\right)^n =
+\frac{q(t)}{(t-\alpha)^{2n-1}} \]
+ce qui se réécrit comme $(s')^2 = h(t')$ où $t' = \frac{1}{t-\alpha}$ et
+$\deg h = \deg q = 2n-1$.
+
+\paragraph{Cas des cubiques ($d=3$)} Les isomorphismes birationnels
+successifs nous ramènent à $s^2 = p(t)$ où $\deg p \leq 4$. La
+remarque précédente permet de faire baisser le degré à 3, on a
+alors\footnote{On se remet ici à utiliser les noms $x$ et $y$ pour les
+  coordonnées, ce qui ne signifie pas qu'on soit revenus à la courbe
+  de départ !}
+\[ y^2 = ax^3 + bx^2 + cx + d \]
+équation appelée \emph{forme de Weierstrass} de la cubique
+irréductible. Si $\carac K \neq 3$, on peut encore réécrire
+$y^2 = x^3 + px + q$.
+
+\begin{proposition}
+  Soient $C$ et $D$ deux courbes irréductibles dans $\aff^2$. Alors
+  elles sont birationnellement équivalentes si et seulement si
+  $K(C) \simeq K(D)$.
+\end{proposition}
+\begin{proof}
+  Laissée en exercice.
+\end{proof}
+
+\subsection{Points lisses et points singuliers}
+
+
 
 \end{document}
 
