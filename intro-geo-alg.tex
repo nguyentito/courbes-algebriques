@@ -32,12 +32,17 @@
 % http://www.madore.org/~david/weblog/d.2009-02-08.1608.html
 
 \newcommand{\nat}{\mathbb{N}}
+\newcommand{\integer}{\mathbb{N}}
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\complex}{\mathbb{C}}
 \newcommand{\aff}{\mathbb{A}}
 \newcommand{\proj}{\mathbb{P}}
 
 \newcommand{\carac}{\textrm{char}}
+
+\newcommand{\derivp}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\derivpp}[2]{\dfrac{\partial^2 #1}{\partial {#2}^2}}
+\newcommand{\derivpmix}[3]{\dfrac{\partial^2 #1}{\partial #2 \partial #3}}
 
 \begin{document}
 
@@ -50,18 +55,31 @@
 Page web du cours : \url{http://mathfond.math.upmc.fr/2015-16/fiches/Itenberg-intro.html}
 
 Le but de ce cours est de fournir beaucoup d'exemples, pour préparer
-aux cours plus avancés de géométrie algébrique
+aux cours plus avancés de géométrie algébrique.
 
 Référence :
 \begin{itemize}
-\item \textit{Basic Algebraic Geometry} de Shafarevich ?
-\item Pour l'algèbre commutative : Zariski--Samuel
+\item \textit{Basic Algebraic Geometry}, I. Shafarevich (le début du cours est calqué là-dessus)
+\item Pour l'algèbre commutative : \textit{Commutative Algebra}, O. Zariski et P. Samuel
 \end{itemize}
 
-\begin{itemize}
-\item Cours 1 : sections blabla à blabla
-\item Cours 2 : sections blabla à blabla
-\end{itemize}
+Progression du cours :
+\begin{enumerate}
+\item Lundi 07/09 : Courbes algébriques, courbes rationnelles, corps
+  de fonctions rationnelles.
+\item Vendredi 11/09 : Paramétrages. Applications rationnelles,
+  équivalence birationnelle.
+\item Lundi 14/09 : Polygones de Newton. Équations de Weierstrass de
+  courbes (hyper)elliptiques. Points et courbes singuliers.
+\item Vendredi 18/09 : Paramètres locaux, multiplicité
+  d'intersection. Projectivisation des courbes algébriques.
+\item Lundi 21/09 : Cartes affines de $\proj^2$ (??). Applications
+  rationnelles dans le cadre projectif. Énoncé du théorème de Bézout.
+\item Vendredi 25/09 : Preuve du théorème de Bézout et application au
+  théorème de Pascal. Variétés algébriques et topologie de Zariski.
+\item Lundi 28/09 : Nullstellensatz. Espaces topologiques nœthériens,
+  composantes irréductibles, dimension de Krull.
+\end{enumerate}
 
 \tableofcontents
 
@@ -321,8 +339,6 @@ en choisissant le représentant $u_2$.
   $g$ qui soit défini en $p$.
 \end{définition}
 
-(Fin du cours 1, début du cours 2)
-
 \paragraph{Exercice}
 Considérons la courbe $C$ définie par $y = 0$.
 Montrer que $K(C)$ peut être identifié à $K(x)$ (corps des fonctions
@@ -487,8 +503,6 @@ très intéressant.)
   \end{itemize}
 \end{corollaire}
 
-(Fin du cours 2.)
-
 \begin{définition}
   S'il existe un isomorphisme birationnel entre deux courbes
   irréductibles $C$ et $D$, on dit que $C$ et $D$ sont
@@ -575,6 +589,13 @@ alors\footnote{On se remet ici à utiliser les noms $x$ et $y$ pour les
 irréductible. Si $\carac K \neq 3$, on peut encore réécrire
 $y^2 = x^3 + px + q$.
 
+Dans le cas d'une cubique, la condition au départ sur les degrés
+impose seulement l'absence d'un terme constant dans le polynôme,
+c'est-à-dire que le point $(0,0)$ soit sur la courbe. Ce qu'on peut
+toujours avoir quitte à effectuer une translation (qui est clairement
+un isomorphisme birationnel). Tout ceci fonctionne donc pour n'importe
+quelle cubique irréductible.
+
 \begin{proposition}
   Soient $C$ et $D$ deux courbes irréductibles dans $\aff^2$. Alors
   elles sont birationnellement équivalentes si et seulement si
@@ -586,7 +607,296 @@ $y^2 = x^3 + px + q$.
 
 \subsection{Points lisses et points singuliers}
 
+\begin{définition}
+  Soit $C$ une courbe dans $\aff^2$ définie par $f(x,y)=0$, et
+  $P \in C$ un point. On dit que $P$ est un \emph{point singulier} de $C$ si
+  \[ \derivp{f}{x}(P) = 0 \quad\text{ et }\quad
+  \derivp{f}{y}(P) = 0 \]
 
+  Sinon, on dit que $P$ est un point \emph{lisse} ou\footnote{Deux
+    terminologies différentes désignant exactement la même chose.}
+  \emph{non singulier} de $C$.
+\end{définition}
+\begin{définition}
+  Si tous les points de $C$ sont non singuliers, on dit que $C$ est
+  une courbe \emph{non singulière}.
+\end{définition}
+
+\paragraph{Interprétation pour $(0,0)$} On suppose que $(0,0)$ est un
+point de $C$, i.e. $f$ n'a pas de terme constant. C'est un point
+singulier si et seulement s'il n'existe pas de monôme de degré 1 dans
+$f$, c'est-à-dire que son polygone de Newton est inclus dans
+conv((0,d),(0,2),(2,0),(d,0)) (DESSIN).
+
+\begin{proposition}
+  Soit $C \subset \aff^2$ une courbe irréductible. Alors $C$ n'a qu'un
+  nombre fini de points singuliers.
+\end{proposition}
+\begin{proof}
+  Soit $f(x,y)=0$ une équation de $C$. Un point $P \in C$ est singulier ssi
+  \[ f(P) = \derivp{f}{x}(P) = \derivp{f}{y}(P) = 0 \]
+  Supposons maintenant qu'il existe un nombre infini de points
+  singuliers. D'après le lemme 1, $f$ divise ses deux dérivées
+  partielles, qui sont pourtant de degré inférieur. Donc
+  \[ \derivp{f}{x}(P) = \derivp{f}{y} = 0 \]
+  Si $\carac K = 0$, on obtient que $f$ est une constante. Sinon,
+  $\carac K = p > 0$ et dans ce cas, tous les monômes, étant annulés
+  par la dérivation, sont de la forme $a_{i,j}x^{pi}y^{pj}$ :
+  \[ f(x, y) = \sum_{i,j} a_{i,j}x^{pi}y^{pj} = \left(\sum_{i,j}
+    a_{i,j}^{1/p}x^{i}y^{j}\right)^p \]
+  ($K$ étant supposé algébriquement clos, on choisit une racine
+  $p$-ième pour chaque $a_{i,j}$, et on utilise l'endomorphisme de
+  Frobenius). Ceci contredit l'irréductibilité de $f$.
+\end{proof}
+
+Si le polygone de Newton de $f$ est dans [trapèze avec (0,r) et (r,0),
+DESSIN] on dit que $P = (0,0)$ est un point singulier \emph{d'ordre
+  $\geq r$}.
+
+\begin{définition}
+  L'\emph{ordre} $r$ d'un polynôme $f$ / d'un point $P$ sur une courbe
+  $\{f=0\}$ dans le cas où $P = (0,0)$ est le plus grand $r$ tel que
+  $f$ ne contienne pas de monôme de degré $< r$.
+\end{définition}
+\begin{définition}
+  Un point d'ordre exactement 2 est appelé \emph{point double}.
+\end{définition}
+
+Soit $\{f=0\}$ une courbe admettant $(0,0)$ comme point double. La
+partie homogène de degré 2 de $f$ se décompose en deux facteurs
+linéaires : $(\lambda_1 x + \mu_1 y) (\lambda_2 x + \mu_2 y)$. On a
+alors deux cas :
+\begin{itemize}
+\item Les deux facteurs sont les mêmes, c'est-à-dire qu'on peut écrire
+  le produit $a(\lambda x + \mu y)^2$ : dans ce cas, le point double
+  est dit \emph{dégénéré}. 
+\item Les deux facteurs sont distincts, il s'agit d'un point double
+  \emph{non dégénéré}.
+\end{itemize}
+
+\paragraph{Exemples} avec dessins des graphes dans $\real^2$ à faire.
+\begin{enumerate}
+\item $y^2 = x^2 + x^3$ (dessiner polygone de Newton).\\
+  $(0,0)$ est un point double non dégénéré : la partie de degré 2 est
+  $y^2 - x^2 = (y-x)(y+x)$, les deux facteurs sont différents si
+  $\carac K \neq 2$.
+\item $y^2 = x^3$. Le polygone de Newton est réduit à un segment
+  (DESSIN).\\
+  $(0,0)$ est un point double dégénéré car la partie de
+  degré 2 s'écrit $y \times y$. Dans $\real^2$, on observe un
+  point de rebroussement\footnote{Ou \textit{cusp} en anglais.}
+\end{enumerate}
+
+\paragraph{Exercices}
+\begin{enumerate}
+\item Montrer que toute conique \emph{irréductible} est non
+  singulière.
+\item Considérons une cubique dans $\aff^2$ définie par une équation
+  de Weierstrass $y^2 = ax^3 + bx^2 + cx + d = p(x)$. Montrer qu'elle
+  est non singulière si et seulement si $p$ est un polynôme à racines
+  simples.
+\end{enumerate}
+
+(Fin du cours 3, début du cours 4)
+
+\begin{théorème}
+  Soit $C \subset \aff^2$ une courbe irréductible, $P \in C$ un point
+  \emph{lisse}. Alors il existe une fonction rationnelle $t$ sur $C$
+  vérifiant :
+  \begin{itemize}
+  \item $t$ est régulière en $P$
+  \item $t(P) = 0$
+  \item pour tout $u \in K(C)\setminus\{0\}$, il existe
+    $k \in \integer$ et $v \in K(C)$ régulière en $P$, $v(P)\neq 0$,
+    tel que $u = t^k v$.
+  \end{itemize}
+  De plus, $u$ est régulière en $P$ si et seulement si $k \geq 0$.
+\end{théorème}
+
+\begin{définition}
+  Une telle fonction rationnelle $t$ s'appelle \emph{paramètre local}
+  en $P$.
+\end{définition}
+
+\paragraph{Remarque} Si $t$ et $t'$ sont deux paramètres locaux en $P$
+alors $t' = tw$ où $w \in K(C)$ est régulière en $P$ et $w(P) \neq
+0$. Par conséquent, le nombre $k$ apparaissant dans l'énoncé ne dépend
+pas du choix d'un paramètre local.
+
+\begin{définition}
+  Ce nombre $k$ s'appelle la \emph{multiplicité de zéro} de $u$ en $P$.
+\end{définition}
+\begin{proof}
+  Sans perte de généralité, prenons $P = (0,0)$ et plaçons-nous dans
+  le cas $\derivp{f}{x}(P) \neq 0$. On va montrer que la fonction $x$
+  convient comme choix de $t$.
+
+  À COMPLÉTER.
+\end{proof}
+
+\paragraph{Multiplicité d'intersection} Soient $C, D \subset \aff^2$
+deux courbes définies respectivement par $f(x,y) = 0$ et $g(x,y) =
+0$.
+On suppose que $f$ est irréductible et que $f \not\mid g$. $g$ définit
+alors une fonction rationnelle non identiquement nulle sur $C$.
+
+\begin{définition}
+  Soit $P \in C \cap D$ un point lisse sur $C$. La \emph{multiplicité
+    d'intersection} de $C$ et\footnote{La définition n'étant pas
+    symétrique en $C$ et $D$, on a affaire à un \enquote{et}
+    syntaxique qui n'est pas commutatif \texttt{:p}} $D$ en $P$, notée
+  $m_P(C, D)$, est la multiplicité de zéro de $g \in K(C)$ en $P$.
+\end{définition}
+
+\paragraph{Exemple} Soit $C$ une droite dans $\aff^2$,
+$P = (\alpha, \beta) \in C$. On peut alors paramétrer la droite comme
+\[
+\begin{cases}
+  x = \alpha + t\xi \\
+  y = \beta + t\eta
+\end{cases}
+\]
+Soit $D$ une courbe définie par $g(x,y)=0$ passant par
+$P$. \\ \textit{Exercice} : montrer que
+\begin{enumerate}
+\item $t$ est un paramètre local de $C$ en $P$
+\item si $P$ est un point singulier de $D$ alors $m_P(C,D) \geq 2$
+\item si $P$ est un point lisse de $D$ alors 
+  \begin{enumerate}[(a)]
+  \item $m_P(C,D) \geq 2$ si et seulement si $C$ est la \emph{droite
+      tangente} de $D$ en $P$ (voir définition ci-dessous, TODO
+    ajouter références dans le document).
+  \item $m_P(C,D) \geq 2$ (on dit alors que $P$ est un \emph{point de
+      flexion} de $D$) si et seulement si
+\[
+\begin{vmatrix}
+\derivpp{g}{x} & \derivpmix{g}{x}{y} & \derivp{g}{x} \\
+\derivpmix{g}{y}{x} & \derivpp{g}{y} & \derivp{g}{y} \\
+\derivp{g}{x}       & \derivp{g}{y}  & 0
+\end{vmatrix}
+(P) = 0
+\]
+  \end{enumerate}
+\end{enumerate}
+
+\begin{définition}
+  La droite tangente à une courbe $D$ définie par $g(x,y)=0$ en un
+  point lisse $P = (\alpha, \beta)$ est la courbe définie par
+  \[ \derivp{g}{x}(P)(x-\alpha) + \derivp{g}{y}(P)(y-\beta) = 0 \]
+\end{définition}
+
+\subsection{Courbes algébriques projectives}
+
+\paragraph{Motivation} Il s'agit de se placer dans le bon cadre pour
+pouvoir énoncer le théorème de Bézout\footnote{C'est la même
+  motivation qui nous a poussé à définir précisément les multiplictés
+  d'intersections à la section précédente.}, dont on peut constater
+l'échec dans $\aff^2$ avec le cas de deux droites parallèles : le
+produit des degrés est 1 et il n'y a pas d'intersection ! Dans le plan
+projectif, deux droites parallèles se croisent en un point à l'infini.
+
+Exemples :
+\begin{itemize}
+\item $\proj^2(\real) = S^2/\{\pm 1\}$
+\item $\proj^2(\complex)$ est une variété topologique de dimension
+  $4$. \textit{Fait} : $\proj^2(\complex)$ quotienté par la
+  conjugaison complexe est difféomorphe à $S^4$ 
+\end{itemize}
+
+blah blah blah à mettre dans un document commun avec le cours de
+surfaces de Riemann.
+
+\begin{théorème}[de Bézout]
+  Soient $C$ et $D$ telles que $C$ soit irréductible et lisse, et
+  $C \not\subset D$. Alors la somme des multiplicités d'intersection
+  de $C$ et $D$ est égale au produit de leurs degrés.
+\end{théorème}
+\begin{proof}
+  Nous allons démontrer le théorème dans deux cas particuliers :
+  \begin{enumerate}
+  \item $\deg C = 1$
+  \item $\deg C = 2$
+  \end{enumerate}
+
+\textit{Cas 1.} $C$ est une droite. 
+
+\textit{Cas 2.} $C$ est une conique lisse.
+\end{proof}
+
+\begin{corollaire}[Théorème de Pascal]
+  Soit $C$ une conique lisse dans $P^2$, on considère un hexagone
+  inscrit. Les 3 points d'intersections des paires de (droites
+  prolongeant des) côtés opposés sont alors alignés.
+\end{corollaire}
+DESSINS.
+\begin{proof}
+  Comme sur le dessin, on note $(L_i, M_i)$ pour $i=1,2,3$ les paires
+  de côtés opposés. La droite $L_i$ (resp. $M_i$) est définie par
+  $l_i = 0$ (resp. $m_i = 0$). On pose alors le
+  pinceau\footnote{Famille de courbes à un paramètre, linéaire en ce
+    paramètre.} de cubiques suivant, de paramètre $\lambda$ :
+  \[ D_{\lambda} : l_1 l_2 l_3 + \lambda m_1 m_2 m_3 = 0 \]
+  Soit $P \in C\setminus\{\textrm{hexagone}\}$. Il existe
+  $\lambda$ tel que $P \in D_{\lambda}$. En effet, l'équation
+  ci-dessus, à $P$ fixé, est linéaire en $\lambda$ et à coefficient
+  directeur non nul puisque $P \not\in M_i$ pour $i=1,2,3$ ; elle
+  admet donc une (unique) solution.
+
+  Par l'absurde, si $C \not\subset D_\lambda$, alors $C$ et
+  $D_\lambda$ satisfont les hypothèses du théorème de Bézout et ont
+  donc 6 points d'intersections (comptés avec multiplicité). Or
+  $D_\lambda$ passe par les sommets de l'hexagone ainsi que $P$, ce
+  qui fait déjà 7 points distincts dans $C \cap D_\lambda$,
+  contradiction.
+
+  Puisque $C \subset D_\lambda$ et que $\deg D_\lambda - \deg C = 1$,
+  $D_\lambda$ est une courbe réductible et contient en fait deux
+  composantes : une conique, $C$, et une droite qu'on notera $L$.
+  Autrement dit $D_\lambda = C \cup L$ or les $L_i \cap M_i$ sont dans
+  $D_\lambda \setminus C$ donc ils sont alignés et $L$ est la droite
+  qui les relie.
+\end{proof}
+
+\section{Variétés algébriques affines}
+
+\subsection{Définitions}
+
+\begin{définition}
+  \emph{lieu des zéros}
+\end{définition}
+
+\begin{définition}
+  \emph{sous-ensemble algébrique fermé}
+\end{définition}
+
+\begin{proposition}
+  stabilité par blabla
+\end{proposition}
+\begin{proof}
+  Évident.
+\end{proof}
+
+Autrement dit on a une topologie sur $\aff^n$ dans laquelle les
+ensembles fermés sont exactement des sous-ensembles algébriques
+fermés.
+
+\begin{définition}
+  Cette topologie s'appelle la \emph{topologie de Zariski} de $\aff^n$.
+\end{définition}
+
+\subsection{Théorème des zéros de Hilbert}
+
+\begin{théorème}[des zéros de Hilbert, ou Nullstellensatz]
+  Soit $\mathcal{a} \subset K[x_1,\dots,x_n]$ un idéal et soit
+  $f \in K[x_1,\dots,x_n]$ tels que $Z(\mathcal{a}) \subset
+  Z(f)$. Alors $f \in \sqrt{\mathcal{a}}$.
+\end{théorème}
+
+\paragraph{Cas particulier} Nullstellensatz faible.
+
+\begin{proof}
+  Astuce de Rabinowitsch.
+\end{proof}
 
 \end{document}
 
